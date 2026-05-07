@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>玩ㄉ抽牌工具</title>
+<title>抽牌室</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1434,7 +1434,6 @@
           <div class="${classes}"${newAttr}>
             <div class="tarot-card-icon">${icon}</div>
             <div class="tarot-card-name">${cardName}</div>
-            ${isExtra ? '<div class="tarot-card-tag">extra</div>' : ''}
           </div>
         `;
       });
@@ -1452,7 +1451,6 @@
             <div class="lenormand-card-num">${num}</div>
             <div class="lenormand-card-icon">${card.sym}</div>
             <div class="lenormand-card-name">${card.name}</div>
-            ${isExtra ? '<div class="lenormand-card-tag">extra</div>' : ''}
           </div>
         `;
       });
@@ -1470,7 +1468,6 @@
           <div class="love-card"${newAttr}>
             <div class="love-card-name">${cardName}</div>
             <div class="love-card-num">${num}</div>
-            ${isExtra ? '<div class="love-card-tag">extra</div>' : ''}
           </div>
         `;
       });
