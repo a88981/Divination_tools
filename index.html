@@ -108,6 +108,44 @@
     margin-bottom: 20px;
   }
 
+  /* 問題輸入框(可選) */
+  .question-box {
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  .question-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    font-family: var(--serif-tc);
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    padding: 8px 4px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+  }
+
+  .question-input::placeholder {
+    color: var(--ink-dim);
+    font-style: italic;
+    font-family: var(--serif-en);
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+  }
+
+  .question-input:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+  }
+
+  .question-input:not(:placeholder-shown) {
+    color: var(--accent);
+    font-weight: 400;
+  }
+
   /* 逆位按鈕(只有塔羅顯示) */
   .reverse-btn {
     display: none;
@@ -1094,6 +1132,10 @@
     </h1>
   </header>
 
+  <div class="question-box">
+    <input type="text" class="question-input" id="questionInput" placeholder="想問什麼?(可不填)" maxlength="100">
+  </div>
+
   <div class="tools">
     <button class="tool active" data-tool="dice">
       占星骰子
@@ -1264,6 +1306,7 @@
   const copyBtnEl = document.getElementById('copyBtn');
   const extraCountEl = document.getElementById('extraCount');
   const reverseBtnEl = document.getElementById('reverseBtn');
+  const questionInputEl = document.getElementById('questionInput');
 
   // 逆位按鈕點擊切換
   reverseBtnEl.addEventListener('click', () => {
@@ -1511,7 +1554,10 @@
     const toolTC = tool === 'tarot' ? '塔羅牌'
                  : tool === 'lenormand' ? '雷諾曼'
                  : '珍愛卡';
-    const lines = [`【${toolTC}】 ${getDateStr()}`, ''];
+    const lines = [`【${toolTC}】 ${getDateStr()}`];
+    const question = questionInputEl.value.trim();
+    if (question) lines.push(`Q:${question}`);
+    lines.push('');
     order.forEach((idx, i) => {
       const num = tool === 'tarot'
         ? String(i + 1).padStart(2, '0')
@@ -1592,7 +1638,10 @@
 
   function copyDiceResult() {
     const { dice, extras } = session;
-    const lines = [`【占星骰子】 ${getDateStr()}`, ''];
+    const lines = [`【占星骰子】 ${getDateStr()}`];
+    const question = questionInputEl.value.trim();
+    if (question) lines.push(`Q:${question}`);
+    lines.push('');
     const fmt = (r) => `行星 ${r.planet.sym} ${r.planet.name} / 星座 ${r.sign.sym} ${r.sign.name} / 宮位 ${r.house.name}`;
     lines.push(`01. ${fmt(dice)}`);
     extras.forEach((r, i) => {
